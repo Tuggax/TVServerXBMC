@@ -1655,6 +1655,15 @@ namespace TVServerKodi
                     s.PreRecordInterval = preRecordInterval;
                     s.PostRecordInterval = postRecordInterval;
                 }
+
+                // Update once the KODI GUI has been updated
+                if (s.ScheduleType == (int)TvDatabase.ScheduleRecordingType.EveryTimeOnEveryChannel ||
+                    s.ScheduleType == (int)TvDatabase.ScheduleRecordingType.EveryTimeOnThisChannel ||
+                    s.ScheduleType == (int)TvDatabase.ScheduleRecordingType.WeeklyEveryTimeOnThisChannel)
+                {
+                    s.SeriesStartRangeOffset = Int32.Parse(layer.GetSetting("seriesStartRangeOffset", "0").Value);
+                }
+
                 s.Persist();
                 RemoteControl.Instance.OnNewSchedule();
 
@@ -1768,6 +1777,15 @@ namespace TVServerKodi
                     updatedSchedule.PreRecordInterval = preRecordInterval;
                     updatedSchedule.PostRecordInterval = postRecordInterval;
                 }
+
+                // Update once the KODI GUI has been updated
+                if (updatedSchedule.ScheduleType == (int)TvDatabase.ScheduleRecordingType.EveryTimeOnEveryChannel ||
+                    updatedSchedule.ScheduleType == (int)TvDatabase.ScheduleRecordingType.EveryTimeOnThisChannel ||
+                    updatedSchedule.ScheduleType == (int)TvDatabase.ScheduleRecordingType.WeeklyEveryTimeOnThisChannel)
+                {
+                    updatedSchedule.SeriesStartRangeOffset = Int32.Parse(layer.GetSetting("seriesStartRangeOffset", "0").Value);
+                }
+                
                 updatedSchedule.Persist();
                 RemoteControl.Instance.OnNewSchedule();
 
